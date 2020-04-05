@@ -29,6 +29,7 @@ try:
                 
 except FileNotFoundError:
     print('Error')
+
 letters = dict(sorted(letters.items(), key=operator.itemgetter(1), reverse=True))
 for k,v in (letters.items()):
     print('{0:<8}{1:<8}{2:.2f}%'.format(k,v,v/number_of_chars))
@@ -38,6 +39,7 @@ print(hist)
 first_letter = list(letters.keys())[0]
 key = ((ord(first_letter) - ord(hist[0])) % len(hist))
 print('key:{0}'.format(key))
+
 def decipher(letter, shift, limit):
     output = (ord(letter) + shift) % limit
     if(output < 65):
@@ -45,5 +47,13 @@ def decipher(letter, shift, limit):
     else:
         return output
     
-for i in range(ord('A'), ord('Z')+1):
-    print(decipher(chr(i),13,91))
+try:
+    with open(text) as file:
+        for line in file:
+            for char in line:
+                if char in letters:
+                    print(chr(decipher(char,key,91)),end='')
+                else:
+                    print(char,end='')
+except FileNotFoundError:
+    print('Error')
