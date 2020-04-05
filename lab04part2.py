@@ -11,7 +11,7 @@ if len(sys.argv) == 1:
     sys.exit("No file given!")
     
 text = sys.argv[1]
-
+all_lines = []
 number_of_chars = 1
 try:
     with open(text) as file:
@@ -36,5 +36,14 @@ for k,v in (letters.items()):
 print(f'Number of letters in text: {number_of_chars}')
 print(hist)
 first_letter = list(letters.keys())[0]
-print((ord(first_letter) - ord(hist[0])) % len(hist))
-
+key = ((ord(first_letter) - ord(hist[0])) % len(hist))
+print('key:{0}'.format(key))
+def decipher(letter, shift, limit):
+    output = (ord(letter) + shift) % limit
+    if(output < 65):
+        return output+ord('A')
+    else:
+        return output
+    
+for i in range(ord('A'), ord('Z')+1):
+    print(decipher(chr(i),13,91))
