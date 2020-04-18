@@ -12,7 +12,7 @@ if len(sys.argv) == 1:
     
 text = sys.argv[1]
 all_lines = []
-number_of_chars = 1
+number_of_chars = 0
 try:
     with open(text) as file:
         for line in file:
@@ -35,10 +35,9 @@ for k,v in (letters.items()):
     print('{0:<8}{1:<8}{2:.2f}%'.format(k,v,v/number_of_chars))
 
 print(f'Number of letters in text: {number_of_chars}')
-print(hist)
 first_letter = list(letters.keys())[0]
-key = ((ord(first_letter) - ord(hist[0])) % len(hist))
-print('key:{0}'.format(key))
+shift = ((ord(first_letter) - ord(hist[0])) % len(hist))
+print('key:{0}'.format(shift))
 
 def decipher(letter, shift, limit):
     output = (ord(letter) + shift) % limit
@@ -52,7 +51,7 @@ try:
         for line in file:
             for char in line:
                 if char in letters:
-                    print(chr(decipher(char,key,91)),end='')
+                    print(chr(decipher(char,shift,91)),end='')
                 else:
                     print(char,end='')
 except FileNotFoundError:

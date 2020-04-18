@@ -21,12 +21,14 @@ try:
             for char in line:
                 if char in letters:
                     number_of_chars += 1
-                    letters[char] += 1
+                    letters[char.upper()] += 1
             
 except FileNotFoundError:
     print('Error')
-
+i = 0
 for k,v in sorted(letters.items(), key=operator.itemgetter(1), reverse=True):
+    if i > 25: break;
+    i+=1;
     print('{0:<8}{1:<8}{2:.2f}%'.format(k,v,v/number_of_chars))
 
 print(f'Number of letters in text: {number_of_chars}')
